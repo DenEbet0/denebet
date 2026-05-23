@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DenEbet — The Man Who Does Not Exist</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #050608;
+      color: #d9d9d9;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 2rem;
+      background: #06080c;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(4,6,10,.75), rgba(4,6,10,.92)),
+      url('assets/images/hero-fog.jpg') center/cover no-repeat;
+      animation: fogMove 18s ease-in-out infinite alternate;
+      transform: scale(1.05);
+      opacity: .9;
+    }
+
+    @keyframes fogMove {
+      0% {
+        transform: scale(1.05) translateX(-10px);
+      }
+      100% {
+        transform: scale(1.12) translateX(10px);
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .logo {
+      width: 260px;
+      max-width: 80%;
+      margin-bottom: 2rem;
+      opacity: .92;
+      filter: drop-shadow(0 0 14px rgba(255,255,255,.08));
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      letter-spacing: .3rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+      color: #f1f1f1;
+      text-shadow: 0 0 30px rgba(255,255,255,.12);
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      letter-spacing: .35rem;
+      text-transform: uppercase;
+      color: #9ca6b3;
+      margin-bottom: 3rem;
+    }
+
+    .enter-btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.05);
+      color: #f1f1f1;
+      letter-spacing: .25rem;
+      transition: .3s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .enter-btn:hover {
+      background: rgba(255,255,255,.12);
+      border-color: rgba(255,255,255,.45);
+      transform: translateY(-2px);
+    }
+
+    section {
+      padding: 6rem 1.5rem;
+      position: relative;
+    }
+
+    .container {
+      width: min(1200px, 100%);
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 300;
+      letter-spacing: .25rem;
+      margin-bottom: 3rem;
+      color: #f3f3f3;
+      text-transform: uppercase;
+    }
+
+    .music-grid,
+    .editions-grid,
+    .social-grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .music-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(20,23,29,.95), rgba(8,10,13,.95));
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: .3s ease;
+      box-shadow: 0 0 30px rgba(0,0,0,.35);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,.15);
+    }
+
+    .card-image {
+      height: 220px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(5,5,7,.92), rgba(5,5,7,.2));
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      letter-spacing: .15rem;
+      margin-bottom: 1rem;
+      color: #f5f5f5;
+      text-transform: uppercase;
+      font-weight: 300;
+    }
+
+    .card p {
+      color: #a9b0bb;
+      font-size: .95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .listen-btn,
+    .support-btn,
+    .locked-btn {
+      display: inline-block;
+      padding: .85rem 1.4rem;
+      border-radius: 10px;
+      font-size: .85rem;
+      letter-spacing: .18rem;
+      text-transform: uppercase;
+      transition: .3s ease;
+    }
+
+    .listen-btn,
+    .support-btn {
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+    }
+
+    .listen-btn:hover,
+    .support-btn:hover {
+      background: rgba(255,255,255,.12);
+    }
+
+    .locked-btn {
+      border: 1px solid rgba(255,255,255,.05);
+      background: rgba(255,255,255,.02);
+      color: #666;
+      cursor: not-allowed;
+    }
+
+    .signals {
+      background: linear-gradient(180deg, #06080c 0%, #0b1017 100%);
+    }
+
+    .signals-note {
+      color: #8e98a7;
+      margin-top: 1rem;
+      font-size: .9rem;
+    }
+
+    iframe {
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      min-height: 315px;
+      margin-top: 1rem;
+    }
+
+    .editions-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .edition-price {
+      font-size: 1.8rem;
+      color: #d6dbe4;
+      margin-bottom: 1rem;
+      font-weight: 300;
+    }
+
+    .support-artist {
+      text-align: center;
+      background: linear-gradient(180deg, rgba(12,14,18,.9), rgba(7,8,10,.95));
+      border-top: 1px solid rgba(255,255,255,.05);
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+
+    .tip-note {
+      margin-top: 1.5rem;
+      color: #9ea6b2;
+      font-size: .9rem;
+    }
+
+    .qr-box {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .qr-box img {
+      width: 240px;
+      max-width: 80%;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      padding: 1rem;
+    }
+
+    footer {
+      padding: 3rem 1.5rem;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,.05);
+      background: #050608;
+    }
+
+    .social-grid {
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+
+    .social-link {
+      padding: 1rem;
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 12px;
+      background: rgba(255,255,255,.02);
+      transition: .3s ease;
+      color: #d0d6de;
+      letter-spacing: .12rem;
+      text-transform: uppercase;
+      font-size: .82rem;
+    }
+
+    .social-link:hover {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.14);
+    }
+
+    .footer-text {
+      color: #7f8793;
+      font-size: .9rem;
+      letter-spacing: .12rem;
+    }
+
+    @media (max-width: 700px) {
+      section {
+        padding: 5rem 1.2rem;
+      }
+
+      .subtitle {
+        letter-spacing: .18rem;
+      }
+
+      iframe {
+        min-height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero-content">
+
+      <!-- Replace with your logo file -->
+      <img src="assets/images/denebet-logo.png" alt="DenEbet Logo" class="logo" />
+
+      <h1>DenEbet</h1>
+
+      <p class="subtitle">
+        The Man Who Does Not Exist
+      </p>
+
+      <a href="#releases" class="enter-btn">
+        ENTER
+      </a>
+    </div>
+  </header>
+
+
+  <section>
+    <div class="container">
+
+      <h2 class="section-title">
+        The Man Who Does Not Exist
+      </h2>
+
+      <div class="card">
+        <div class="card-content">
+          <p>
+            DenEbet is a narrative music and art project focused on atmosphere, memory, identity and cinematic storytelling.
+          </p>
+
+          <p>
+            This world is built through music, visuals and symbolic releases.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section id="releases">
+    <div class="container">
+
+      <h2 class="section-title">
+        Official Channel
+      </h2>
+
+      <div class="card" style="margin-bottom:2rem;">
+        <div class="card-image" style="background-image:url('assets/images/hero-fog.jpg')">
+          <div class="card-overlay"></div>
+        </div>
+
+        <div class="card-content">
+          <h3>DenEbet Official</h3>
+
+          <p>
+            Main broadcast archive and official artist channel.
+          </p>
+
+          <a class="listen-btn" href="https://youtube.com/@denebet?si=WDu5NG64GDsskn0V" target="_blank">
+            Open Channel
+          </a>
+        </div>
+      </div>
+
+      <h2 class="section-title">
+        Releases
+      </h2>
+
+      <div class="music-grid">
+
+        <div class="card">
+          <div class="card-image" style="background-image:url('assets/images/orange-rain.jpg')">
+            <div class="card-overlay"></div>
+          </div>
+
+          <div class="card-content">
+            <h3>Album I</h3>
+
+            <p>
+              Official release archive.
+            </p>
+
+            <iframe src="https://www.youtube.com/embed/videoseries?list=OLAK5uy_mN920uCD3aYs99zJbalbQcnCQcgstKrC0" allowfullscreen></iframe>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <div class="card-image" style="background-image:url('assets/images/blue-silhouette.jpg')">
+            <div class="card-overlay"></div>
+          </div>
+
+          <div class="card-content">
+            <h3>Album II</h3>
+
+            <p>
+              Official release archive.
+            </p>
+
+            <iframe src="https://www.youtube.com/embed/videoseries?list=OLAK5uy_lDRhZxMwdQrljt5l_5ODoZvYdcNzXk1nQ" allowfullscreen></iframe>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <section class="signals">
+    <div class="container">
+
+      <h2 class="section-title">
+        Hidden Signals
+      </h2>
+
+      <div class="card">
+        <div class="card-image" style="background-image:url('assets/images/signals.jpg')">
+          <div class="card-overlay"></div>
+        </div>
+
+        <div class="card-content">
+          <h3>Archive Transmission</h3>
+
+          <p>
+            Selected tracks, future demos and hidden transmissions.
+          </p>
+
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLuf-1EccVT1EaRZLpaLiOPoSj1VcN86ID" allowfullscreen></iframe>
+
+          <p class="signals-note">
+            Future releases, samples and hidden transmissions.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section>
+    <div class="container">
+
+      <h2 class="section-title">
+        Editions
+      </h2>
+
+      <div class="editions-grid">
+
+        <div class="card">
+          <div class="card-image" style="background-image:url('assets/images/support-edition.jpg')">
+            <div class="card-overlay"></div>
+          </div>
+
+          <div class="card-content">
+            <h3>Support Edition</h3>
+
+            <div class="edition-price">
+              €10
+            </div>
+
+            <p>
+              Support package access.
+              Additional material may be added later.
+            </p>
+
+            <a href="assets/images/support-edition-10eur-qr.jpg" target="_blank" class="support-btn">
+              Unlock Support Edition
+            </a>
+          </div>
+        </div>
+
+
+        <div class="card">
+          <div class="card-image" style="background-image:url('assets/images/deluxe.jpg')">
+            <div class="card-overlay"></div>
+          </div>
+
+          <div class="card-content">
+            <h3>Future Release</h3>
+
+            <div class="edition-price">
+              Unavailable
+            </div>
+
+            <p>
+              Additional editions may appear later.
+            </p>
+
+            <button class="locked-btn" disabled>
+              Coming Later
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <section class="support-artist" id="support-artist">
+    <div class="container">
+
+      <h2 class="section-title">
+        Support the Artist
+      </h2>
+
+      <p>
+        Optional support for future music,
+        visuals and releases.
+      </p>
+
+      <div class="qr-box">
+
+        <a href="assets/images/tip-jar-qr.jpg" target="_blank">
+          <img src="assets/images/tip-jar-qr.jpg" alt="Tip Jar QR" />
+        </a>
+
+      </div>
+
+      <p class="tip-note">
+        Tip jar only.<br>
+        No product or edition included.
+      </p>
+
+    </div>
+  </section>
+
+
+  <footer>
+
+    <div class="social-grid">
+
+      <a class="social-link" href="https://www.youtube.com/@DenEbet" target="_blank">
+        YouTube
+      </a>
+
+      <a class="social-link" href="https://denebet.bandcamp.com" target="_blank">
+        Bandcamp
+      </a>
+
+      <a class="social-link" href="https://instagram.com/denebet0" target="_blank">
+        Instagram
+      </a>
+
+      <a class="social-link" href="https://www.tiktok.com/@denebet0" target="_blank">
+        TikTok
+      </a>
+
+    </div>
+
+    <p class="footer-text">
+      DenEbet © 2025
+    </p>
+
+  </footer>
+
+</body>
+</html>
