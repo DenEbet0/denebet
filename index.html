@@ -4,9 +4,487 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DenEbet — The Man Who Does Not Exist</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-dark-bg: #050608;
+      --color-dark-secondary: #0a0c10;
+      --color-text-primary: #f1f1f1;
+      --color-text-secondary: #9ca6b3;
+      --color-border: rgba(255, 255, 255, 0.08);
+      --color-border-hover: rgba(255, 255, 255, 0.15);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--color-dark-bg);
+      color: var(--color-text-primary);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Cinzel', serif;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 2rem;
+      background: var(--color-dark-bg);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(4,6,10,.75), rgba(4,6,10,.92)),
+        url('fog-bg.jpg') center/cover no-repeat;
+      animation: fogFloat 20s ease-in-out infinite alternate;
+      opacity: .9;
+    }
+
+    @keyframes fogFloat {
+      0% { transform: translateX(-20px) translateY(-10px); }
+      100% { transform: translateX(20px) translateY(10px); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .logo {
+      width: 280px;
+      max-width: 85%;
+      margin-bottom: 2rem;
+      opacity: .95;
+      filter: drop-shadow(0 0 20px rgba(255,255,255,.1));
+    }
+
+    h1 {
+      font-size: clamp(3rem, 10vw, 6.5rem);
+      letter-spacing: .4em;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--color-text-secondary);
+      margin-bottom: 3.5rem;
+    }
+
+    .enter-btn,
+    .btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.05);
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      transition: .3s ease;
+      cursor: pointer;
+    }
+
+    .enter-btn:hover,
+    .btn:hover {
+      background: rgba(255,255,255,.12);
+      transform: translateY(-2px);
+    }
+
+    section {
+      padding: 6rem 1.5rem;
+    }
+
+    .container {
+      width: min(1200px, 100%);
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 3rem;
+      text-transform: uppercase;
+    }
+
+    .card,
+    .album-card,
+    .edition-card {
+      background: linear-gradient(135deg, rgba(15,17,22,.8), rgba(8,10,13,.9));
+      border: 1px solid rgba(255,255,255,.08);
+      overflow: hidden;
+      transition: .3s ease;
+    }
+
+    .card:hover,
+    .album-card:hover,
+    .edition-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,.15);
+    }
+
+    .card-image,
+    .album-image {
+      height: 280px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .card-image::after,
+    .album-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(5,5,7,.95), rgba(5,5,7,.15));
+    }
+
+    .card-content,
+    .album-content,
+    .edition-content {
+      padding: 2rem;
+    }
+
+    .albums-grid,
+    .editions-grid,
+    .social-links {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .albums-grid,
+    .editions-grid {
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    .social-links {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      max-width: 700px;
+      margin: 0 auto 2rem;
+    }
+
+    .price {
+      font-size: 2rem;
+      margin: 1rem 0;
+    }
+
+    footer {
+      padding: 4rem 1.5rem;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .social-link {
+      padding: 1rem;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.02);
+    }
+
+    @media(max-width:768px){
+      section {
+        padding: 5rem 1.2rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<!-- Use the full HTML content provided in the chat -->
-<!-- Asset filenames corrected for your GitHub repo -->
+
+<header class="hero">
+  <div class="hero-content">
+
+    <img src="logo.jpg" alt="DenEbet Logo" class="logo">
+
+    <h1>DenEbet</h1>
+
+    <p class="subtitle">
+      The Man Who Does Not Exist
+    </p>
+
+    <a href="#releases" class="enter-btn">
+      ENTER
+    </a>
+
+  </div>
+</header>
+
+<section>
+  <div class="container">
+
+    <h2 class="section-title">
+      The Man Who Does Not Exist
+    </h2>
+
+    <div class="card">
+      <div class="card-content">
+
+        <p>
+          DenEbet is a narrative music and art project focused on atmosphere, memory, identity and cinematic storytelling.
+        </p>
+
+        <p>
+          This world is built through music, visuals and symbolic releases.
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="releases">
+  <div class="container">
+
+    <h2 class="section-title">
+      Official Channel
+    </h2>
+
+    <div class="card">
+
+      <div class="card-image"
+        style="background-image:url('fog-bg.jpg')">
+      </div>
+
+      <div class="card-content">
+
+        <h3>DenEbet Official</h3>
+
+        <p>
+          Main broadcast archive and official artist channel.
+        </p>
+
+        <a class="btn"
+          href="https://youtube.com/@denebet"
+          target="_blank">
+          Open Channel
+        </a>
+
+      </div>
+    </div>
+
+    <br><br>
+
+    <h2 class="section-title">
+      Releases
+    </h2>
+
+    <div class="albums-grid">
+
+      <div class="album-card">
+
+        <div class="album-image"
+          style="background-image:url('hooded-blue.jpg')">
+        </div>
+
+        <div class="album-content">
+
+          <h3>Album I</h3>
+
+          <p>
+            Official release archive.
+          </p>
+
+          <a class="btn"
+            href="https://youtube.com/playlist?list=OLAK5uy_mN920uCD3aYs99zJbalbQcnCQcgstKrC0"
+            target="_blank">
+            Open Album
+          </a>
+
+        </div>
+      </div>
+
+      <div class="album-card">
+
+        <div class="album-image"
+          style="background-image:url('hooded-blue.jpg')">
+        </div>
+
+        <div class="album-content">
+
+          <h3>Album II</h3>
+
+          <p>
+            Official release archive.
+          </p>
+
+          <a class="btn"
+            href="https://youtube.com/playlist?list=OLAK5uy_lDRhZxMwdQrljt5l_5ODoZvYdcNzXk1nQ"
+            target="_blank">
+            Open Album
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <h2 class="section-title">
+      Hidden Signals
+    </h2>
+
+    <div class="card">
+
+      <div class="card-image"
+        style="background-image:url('fog-bg.jpg')">
+      </div>
+
+      <div class="card-content">
+
+        <h3>Archive Transmission</h3>
+
+        <p>
+          Selected tracks, future demos and hidden transmissions.
+        </p>
+
+        <a class="btn"
+          href="https://youtube.com/playlist?list=PLuf-1EccVT1EaRZLpaLiOPoSj1VcN86ID"
+          target="_blank">
+          Open Signals
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="container">
+
+    <h2 class="section-title">
+      Support Edition
+    </h2>
+
+    <div class="editions-grid">
+
+      <div class="edition-card">
+
+        <div class="album-image"
+          style="background-image:url('walker-orange.jpg')">
+        </div>
+
+        <div class="edition-content">
+
+          <h3>Support Edition</h3>
+
+          <div class="price">
+            €10
+          </div>
+
+          <p>
+            Support package access.
+          </p>
+
+          <button class="btn">
+            Unlock Support Edition
+          </button>
+
+        </div>
+      </div>
+
+      <div class="edition-card">
+
+        <div class="album-image"
+          style="background-image:url('hooded-blue.jpg')">
+        </div>
+
+        <div class="edition-content">
+
+          <h3>Future Release</h3>
+
+          <div class="price">
+            Unavailable
+          </div>
+
+          <p>
+            Additional editions may appear later.
+          </p>
+
+          <button class="btn" disabled>
+            Coming Later
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<footer>
+
+  <div class="social-links">
+
+    <a class="social-link"
+      href="https://youtube.com/@DenEbet"
+      target="_blank">
+      YouTube
+    </a>
+
+    <a class="social-link"
+      href="https://denebet.bandcamp.com"
+      target="_blank">
+      Bandcamp
+    </a>
+
+    <a class="social-link"
+      href="https://instagram.com/denebet0"
+      target="_blank">
+      Instagram
+    </a>
+
+    <a class="social-link"
+      href="https://tiktok.com/@denebet0"
+      target="_blank">
+      TikTok
+    </a>
+
+  </div>
+
+  <p>
+    DenEbet © 2025
+  </p>
+
+</footer>
+
 </body>
 </html>
